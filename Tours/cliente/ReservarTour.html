@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+  </head>
+<body>
+<div class="container lista">
+
+
+<form action="javascript:;" onsubmit="ReservarTour(this)">
+    <div class="form-group col-md-6 lista">
+    <h1>Datos del Tour </h1>
+    
+      <!--<label >idTour</label>-->
+      <input type="hidden" class="form-control" name="idTour" id="idTour" readonly="readonly" >
+    </div>
+    <div class="form-group col-md-6 lista">
+      <label >nombre</label>
+      <input type="text" class="form-control" name="nombre" id="nombre" readonly="readonly" >
+    </div>
+    <div class="form-group col-md-6 lista">
+      <label >Descripcion</label>
+      <input type="text" class="form-control" name="descripcion" id="descripcion" readonly="readonly" >
+    </div>
+    <div class="form-group col-md-6 lista">
+        <label >Destino</label>
+        <input type="text" class="form-control" name="destino" id="destino" readonly="readonly" >
+      </div>
+      <div class="form-group col-md-6 lista">
+        <label >Precio</label>
+        <input type="text" class="form-control" name="precio" id="precio" readonly="readonly" >
+      </div>
+
+      
+      <div class="form-group col-md-6 lista">
+        <label><h1>Datos De La Reserva</h1></label>
+        <br>
+        <label >nombre titular</label>
+        <input type="text" class="form-control" name="nombre_titular" id="nombre_titular" required >
+      </div>
+      <div class="form-group col-md-6 lista">
+        <label >Correo De Contacto</label>
+        <input type="email" class="form-control" name="email" id="email"  required>
+      </div>
+      <div class="form-group col-md-6 lista">
+          <label >Telefono</label>
+          <input type="tel" class="form-control" name="telefono" id="telefono"  required>
+        </div>
+        <div class="form-group col-md-6 lista">
+          <label >Numero De personas</label>
+          <input type="number" class="form-control" name="personas" id="personas" required>
+        </div>
+        <div class="form-group col-md-6 lista">
+            <label >Fecha de inicio </label>
+            <input type="date" class="form-control" name="fecha inicio" id="fecha inicio" required>
+          </div>    
+          <div class="form-group col-md-6 lista">
+            <label >Fecha de fin </label>
+            <input type="date" class="form-control" name="fecha fin" id="fecha fin" required>
+          </div>        
+        <div class="form-group col-md-6 lista">
+          <button type="submit" class="btn btn-primary">Reservar</button>
+        </div>
+  </form>
+
+</div>
+
+  </body>
+  </html>
+<script>
+const queryString = window.location.search;
+console.log(queryString);
+const urlParams = new URLSearchParams(queryString);
+const idTour = urlParams.get('idTour')
+console.log(idTour);
+axios.get('http://localhost:4000/tours/'+idTour)
+ .then(response => {
+     console.log(response.data.nombre);
+     const idTourInput = document.getElementById('idTour').value = response.data.idTour;
+     const nombreInput = document.getElementById('nombre').value = response.data.nombre;
+     const descripcionInput = document.getElementById('descripcion').value = response.data.descripcion;
+     const destinoInput = document.getElementById('destino').value = response.data.descripcion;
+     const precioInput =  document.getElementById('precio').value = response.data.precio;
+     console.log("titulo: "+nombreInput);
+ }, 
+    error => {
+      console.log(error);
+  } );
+
+function ReservarTour(){
+    var Reserva=[];
+    var nombre_titular = null;
+    var email =null;
+    var telefono=null;
+    var personas = null;
+    var fecha_de_inicio = null;
+    var fecha_de_fin = null;
+
+    console.log("entro a reservar");
+        nombre_titular = document.getElementsByName("nombre_titular")[0].value;
+        nombre = document.getElementsByName("nombre")[0].value;
+        email = document.getElementsByName("email")[0].value;
+        telefono = document.getElementsByName("telefono")[0].value;
+        personas = document.getElementsByName("personas")[0].value;        
+        fecha_de_inicio = document.getElementsByName("fecha inicio")[0].value;
+        fecha_de_fin = document.getElementsByName("fecha fin")[0].value;
+        idTour2 = document.getElementsByName("idTour")[0].value;
+    Reserva={
+      nombre:nombre,
+       nombre_titular:nombre_titular,
+       correo_electronico:email,
+       telefono:telefono,
+       personas:personas,
+       fecha_inicio:fecha_de_inicio,
+       fecha_fin: fecha_de_fin,
+       idTour:idTour2
+    };
+    console.log(Reserva);
+axios.post('http://localhost:4000/reservas/',Reserva)
+    
+    .then(response => {
+        console.log("test"); 
+     } )
+    .catch(error => {
+        console.error('There was an error!', error);
+    });
+
+    axios.post('http://localhost:4000/tours/',Tour)
+    
+    .then(response => {
+        console.log("test"); 
+     } )
+    .catch(error => {
+        console.error('There was an error!', error);
+    });
+ 
+}
+
+
+</script>
+  <style>
+    .lista {
+      margin-top: 50px;
+      margin-left: 100px;
+      margin-right: 100px;;
+    }
+    .titulo_top{
+      background-color: dodgerblue;
+      color:white;
+    }
+    .btn-primary{
+      background-color:dodgerblue;
+      float:right;
+    
+    }
+   </style>

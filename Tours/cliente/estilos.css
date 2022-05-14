@@ -1,0 +1,134 @@
+body{
+  
+    padding: 100px 80px 0;
+    min-height: 100vh;
+    position: relative;
+    padding-bottom: 100px;
+    background-image: url(images/bg.jpg);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+
+}
+
+.lista {
+    margin-top: -30px;
+    margin-left: 100px;
+    margin-right: 100px;;
+    background-color: white;
+    
+    
+  }
+  .titulo_top{
+    background-color: dodgerblue;
+    color:white;
+  }
+  .btn-primary{
+    background-color:dodgerblue;
+    margin-bottom: 40px;
+  
+  }
+
+  
+  h1 {
+    font-family: 'Domine', serif;
+  }
+  h2 {
+    font-family: 'Domine', serif;
+  }
+  h4{
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+   }
+   h5{
+     display: none;
+   }
+  
+  .description{
+
+    font-size: 2;
+
+
+  }
+  #contenedor{
+    
+    text-align: center;
+  
+  }
+  div p{
+    font-family: 'Domine';
+    
+  }
+
+  div p .des{
+    display: none;
+  }
+  .imgT{
+    width: 330px;
+    height: 285px;
+    position: relative;
+    justify-content: center;
+    right: -12%;
+    float: left;
+    clip-path: circle(50%);
+    transition-duration: 0.5s;
+    transition-delay: 0.3s;
+  }
+
+  .imgT:hover{
+    clip-path: circle(100%);
+    width: 360px;
+    height: 315px;
+  }
+
+  .header {
+  z-index: 2;
+  background-color: #81c4fa;
+  height: 80px;
+  position: fixed;
+  width: 100%;
+  top: 0;
+  left: 0;
+  opacity: 93%;
+}
+ 
+
+.logo{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100px;
+}
+.logo img{
+  width: 260px;
+  height: 250px;
+  
+}
+
+
+.nav-link {
+  color: black;
+}
+
+
+.nav-menu {
+  display: flex;
+  margin-left: 40px;
+  list-style: none;
+  text-decoration: none;
+}
+
+.nav-menu-item {
+  font-size: 18px;
+  margin: 0 10px;
+  line-height: 80px;
+  width: max-content;
+}
+
+.nav-menu-link {
+  padding: 8px 12px;
+  border-radius: 3px;
+  text-decoration: none;
+}
+
+

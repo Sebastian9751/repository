@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Domine:wght@600&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Domine:wght@600&display=swap" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <link rel="stylesheet" href="estilos.css">
+    <title>ToursForYou</title>
+  </head>
+<body>
+  <header class="header">    
+    <div  class="logo">
+      <img src="images/Logo.png" >  
+    </div>
+</header>
+
+<br><br>
+<div class="lista">
+  <h1>Tours</h1>
+    <table  class="table table-responsive table-bordered table-hover  ">
+      <thead>
+        
+      </thead>
+      <tbody id="container">
+      </tbody>
+    </table>
+  </div>
+</body>
+</html>
+
+
+<script>
+fetch('http://localhost:4000/tours/')
+        .then(response => response.json())
+        .then(json => {
+            Tours(json.results);
+        });
+        axios.get('http://localhost:4000/tours/')
+  .then(response => {
+    console.log(response.data);
+    Tours(response.data); 
+  }, error => {
+    console.log(error);
+  });
+
+function Tours(Tours) {
+  const container = document.getElementById('container')
+   Tours.forEach(Tour => {
+    container.innerHTML = `
+    ${container.innerHTML}
+          <div id="contenedor">
+          <h5>${Tour.idTour}</h4> <br>
+          <h2>${Tour.nombre}</h2> <br>
+          <img class="imgT" src="images/${Tour.ruta}.jpg" >
+            <br><br> <b>Precio base:</b> &nbsp;  $${Tour.precio}</p> 
+          <a type="button" class="btn btn-info" href="ReservarTour.html?idTour=${Tour.idTour}">Reservar</a> <br> <br>
+          <button type="button" class="btn btn-primary edit" data-toggle="modal" data-target="#exampleModal" data-idt="${Tour.idTour}" data-nom="${Tour.nombre}" data-desc="${Tour.descripcion}">ver mas</button>
+          </div>
+          <br><br><br> <br><br><br> 
+  `;
+  $(document).on('click','.edit', function(){
+    var idTour = $(this).data('idt');
+    var nombre = $(this).data('nom');
+    var descrip = $(this).data('desc');
+    $('#idtour').val(idTour);
+    $('#nombre').val(nombre);
+    $('#descrip').val(descrip);
+    });
+  }); 
+}
+</script>
+
+<!-------------->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <label>Nombre: </label> <input type="text" class="form-control" id="nombre" name="" readonly="readonly"><br>
+        <label>Descripción: </label><textarea class="form-control" id="descrip" readonly="readonly" rows="4"></textarea> 
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
